@@ -6,9 +6,15 @@ import contactManagerInterfaces.*;
 
 public class ContactManagerTest {
 	
+	Contact testContact = new DummyContactImpl();
+	
 	@Before
 	public void instantiateClass() {
-		Contact testContact = new DummyContactImpl();
+	}
+	
+	@Test
+	public final void getIdShouldBeGreaterThanZero() {
+		Assert.assertTrue(testContact.getId() > 0);
 	}
 	
 }
