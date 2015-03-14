@@ -7,10 +7,14 @@ import contactManagerInterfaces.Meeting;
 
 public class DummyMeetingImpl implements Meeting {
 
-	@Override
+	public int id;
+
+	public DummyMeetingImpl(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override
