@@ -7,10 +7,13 @@ import contactManagerInterfaces.Meeting;
 
 public class DummyMeetingImpl implements Meeting {
 
-	public int id;
+	private int id;
+	private Calendar meetingDate;
+	
 
-	public DummyMeetingImpl(int id) {
+	public DummyMeetingImpl(int id, Calendar meetingDate) {
 		this.id = id;
+		this.meetingDate = meetingDate;
 	}
 	
 	public int getId() {
@@ -19,8 +22,7 @@ public class DummyMeetingImpl implements Meeting {
 
 	@Override
 	public Calendar getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return meetingDate;
 	}
 
 	@Override
