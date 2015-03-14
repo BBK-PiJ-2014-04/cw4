@@ -16,7 +16,7 @@ public class MeetingTest {
 	
 	@Before
 	public void instantiateClass() {
-		testMeeting = new DummyMeetingImpl(testID);
+		testMeeting = new DummyMeetingImpl(testID,date);
 	}
 	
 	@Test
