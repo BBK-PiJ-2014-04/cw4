@@ -3,10 +3,14 @@ import contactManagerInterfaces.Contact;
 
 public class DummyContactImpl implements Contact {
 
+	private int id;
+	
+	public DummyContactImpl(int id) {
+		this.id = id;
+	}
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class ContactTest {
 	
 	@Before
 	public void instantiateClass() {
-		testContact = new DummyContactImpl();
+		testContact = new DummyContactImpl(testID);
 	}
 	
 	@Test
