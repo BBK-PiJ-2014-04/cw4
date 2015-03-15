@@ -11,6 +11,7 @@ public class ContactTest {
 	private Contact testContact;
 	private int testID = 1;
 	private String testName = "testName";
+	private String testNotes = "testtesttest";
 	
 	@Before
 	public void instantiateClass() {
@@ -50,6 +51,11 @@ public class ContactTest {
 	@Test(expected = IllegalArgumentException.class)
 	public final void setNotesShouldNotAcceptNull(){
 		testContact.addNotes(null);
+	}
+	
+	@Test
+	public final void getNotesShouldReturnTheSameNoteSetWithAddNotes(){
+		Assert.assertEquals(testContact.getNotes(),testNotes);
 	}
 	
 }
