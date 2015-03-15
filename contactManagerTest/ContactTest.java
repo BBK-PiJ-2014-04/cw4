@@ -39,7 +39,7 @@ public class ContactTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public final void getNameShouldNotReturnEmpty(){
-		Contact newtestContact = new DummyContactImpl(testID, "");
+		testContact = new DummyContactImpl(testID, "");
 	}
 	
 }
