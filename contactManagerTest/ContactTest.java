@@ -32,14 +32,14 @@ public class ContactTest {
 		Assert.assertNotNull(testContact.getName());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public final void getNameShouldNotReturnEmpty(){
-		testContact = new DummyContactImpl(testID, "");
+	@Test
+	public final void getNameShouldReturnTheSameNameThatWasPassed(){
+		Assert.assertEquals(testContact.getName(),testName);
 	}
 	
-	@Test
-	public final void getNameShouldReturnTheSameIDoThatWasPassed(){
-		Assert.assertEquals(testContact.getName(),"");
+	@Test(expected = IllegalArgumentException.class)
+	public final void getNameShouldNotReturnEmpty(){
+		Contact newtestContact = new DummyContactImpl(testID, "");
 	}
 	
 }
