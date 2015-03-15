@@ -9,7 +9,7 @@ import contactManagerInterfaces.Contact;
 public class ContactTest {
 	
 	private Contact testContact;
-	private int testID;
+	private int testID = 1;
 	
 	@Before
 	public void instantiateClass() {
