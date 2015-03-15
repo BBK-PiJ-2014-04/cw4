@@ -55,6 +55,7 @@ public class ContactTest {
 	
 	@Test
 	public final void getNotesShouldReturnTheSameNoteSetWithAddNotes(){
+		testContact.addNotes(testNotes);
 		Assert.assertEquals(testContact.getNotes(),testNotes);
 	}
 	
