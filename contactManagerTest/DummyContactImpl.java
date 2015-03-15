@@ -8,7 +8,12 @@ public class DummyContactImpl implements Contact {
 	
 	public DummyContactImpl(int id, String name) {
 		this.id = id;
-		this.name = name;
+		if(name != "") {
+			this.name = name;
+		}
+		else {
+			throw new IllegalArgumentException("The name of the Contact can't be null");
+		}
 	}
 	@Override
 	public int getId() {
@@ -17,8 +22,7 @@ public class DummyContactImpl implements Contact {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override

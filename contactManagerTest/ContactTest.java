@@ -42,4 +42,14 @@ public class ContactTest {
 		testContact = new DummyContactImpl(testID, "");
 	}
 	
+	@Test
+	public final void getNotesShouldNotReturnNull(){
+		Assert.assertNotNull(testContact.getNotes());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void setNotesShouldNotAcceptNull(){
+		testContact.addNotes(null);
+	}
+	
 }
