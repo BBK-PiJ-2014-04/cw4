@@ -5,9 +5,11 @@ public class DummyContactImpl implements Contact {
 
 	private int id;
 	private String name;
+	private String notes;
 	
 	public DummyContactImpl(int id, String name) {
 		this.id = id;
+		this.notes = "";
 		if(name != "") {
 			this.name = name;
 		}
@@ -27,14 +29,15 @@ public class DummyContactImpl implements Contact {
 
 	@Override
 	public String getNotes() {
-		// TODO Auto-generated method stub
-		return null;
+		return notes;
 	}
 
 	@Override
 	public void addNotes(String note) {
-		// TODO Auto-generated method stub
-		
+		if(note == null) {
+			throw new IllegalArgumentException("Null is an invalid parameter for addNotes");
+		}
+		this.notes = note;
 	}
 
 }
