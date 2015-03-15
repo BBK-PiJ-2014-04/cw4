@@ -4,9 +4,11 @@ import contactManagerInterfaces.Contact;
 public class DummyContactImpl implements Contact {
 
 	private int id;
+	private String name;
 	
-	public DummyContactImpl(int id) {
+	public DummyContactImpl(int id, String name) {
 		this.id = id;
+		this.name = name;
 	}
 	@Override
 	public int getId() {
