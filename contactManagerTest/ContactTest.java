@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import contactManager.ContactImpl;
 import contactManagerInterfaces.Contact;
 
 public class ContactTest {
@@ -15,7 +16,7 @@ public class ContactTest {
 	
 	@Before
 	public void instantiateClass() {
-		testContact = new DummyContactImpl(testID,testName);
+		testContact = new ContactImpl(testID,testName);
 	}
 	
 	@Test
