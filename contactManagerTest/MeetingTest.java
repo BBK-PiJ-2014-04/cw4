@@ -30,13 +30,24 @@ public class MeetingTest {
 	}
 	
 	@Test
-	public final void GetDateShouldNotReturnNull() {
+	public final void getDateShouldNotReturnNull() {
 		Assert.assertNotNull(testMeeting.getDate());
 	}
 	
 	@Test
-	public final void GetDateShouldReturnTheSameDateofWhatItWasWhenInitiated() {
+	public final void getDateShouldReturnTheSameDateofWhatItWasWhenInitiated() {
 		Assert.assertEquals(testMeeting.getDate(),date);
 	}
+	
+	@Test
+	public final void getContactsShouldNotReturnNull() {
+		Assert.assertNotNull(testMeeting.getContacts());
+	}
+	
+	@Test
+	public final void getContactsShouldReturnANonEmptySet() {
+		Assert.assertTrue(testMeeting.getContacts().size() > 0);
+	}
+	
 
 }

@@ -16,6 +16,7 @@ public class DummyMeetingImpl implements Meeting {
 		this.meetingDate = meetingDate;
 	}
 	
+	@Override
 	public int getId() {
 		return id;
 	}
