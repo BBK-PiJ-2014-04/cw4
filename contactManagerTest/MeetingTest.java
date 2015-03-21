@@ -8,6 +8,7 @@ import java.util.Set;
 import org.junit.*;
 
 import contactManager.ContactImpl;
+import contactManager.MeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.Meeting;
 
@@ -25,7 +26,7 @@ public class MeetingTest {
 		Contact testContact2 = new ContactImpl(2,"FirstContact2");
 		testContacts.add(testContact1);
 		testContacts.add(testContact2);
-		testMeeting = new DummyMeetingImpl(testID,date,testContacts);
+		testMeeting = new MeetingImpl(testID,date,testContacts);
 	}
 	
 	@Test
