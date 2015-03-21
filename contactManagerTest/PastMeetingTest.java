@@ -11,13 +11,14 @@ import org.junit.Test;
 
 import contactManager.ContactImpl;
 import contactManagerInterfaces.Contact;
+import contactManagerInterfaces.PastMeeting;
 
 public class PastMeetingTest {
 	
-	private DummyPastMeetingImpl testMeeting;
+	private PastMeeting testMeeting;
 	
 	private int testID = 1;
-	private Calendar date = new GregorianCalendar(2014,10,31);
+	private Calendar date = new GregorianCalendar(1986,07,27);
 	private Set<Contact> testContacts = new HashSet<Contact>();
 	private String testNotes = "testtesttest";
 	
@@ -28,6 +29,19 @@ public class PastMeetingTest {
 		testContacts.add(testContact1);
 		testContacts.add(testContact2);
 		testMeeting = new DummyPastMeetingImpl(testID,date,testContacts);
+	}
+	
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void setNotesShouldNotAcceptaDateinTheFuture(){
+		Calendar newdate = new GregorianCalendar(
+										Calendar.getInstance().get(Calendar.YEAR),
+										Calendar.getInstance().get(Calendar.MONTH),
+										Calendar.getInstance().get(Calendar.DAY_OF_WEEK),
+										Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+										Calendar.getInstance().get(Calendar.MINUTE + 1)
+									); //my program will not consider seconds
+		PastMeeting newtestMeeting = new DummyPastMeetingImpl(testID,newdate,testContacts);
 	}
 	
 	@Test
