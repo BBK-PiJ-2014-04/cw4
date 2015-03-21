@@ -9,17 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import contactManager.ContactImpl;
-import contactManager.PastMeetingImpl;
+import contactManager.FutureMeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.FutureMeeting;
-import contactManagerInterfaces.PastMeeting;
-
 public class FutureMeetingTest {
 
-	private FutureMeeting testMeeting;
 	
 	private int testID = 1;
-	private Calendar date = new GregorianCalendar(2016,07,27);
 	private Set<Contact> testContacts = new HashSet<Contact>();
 	
 	@Before
@@ -28,7 +24,6 @@ public class FutureMeetingTest {
 		Contact testContact2 = new ContactImpl(2,"FirstContact2");
 		testContacts.add(testContact1);
 		testContacts.add(testContact2);
-		testMeeting = new DummyFutureMeetingImpl(testID,date,testContacts);
 	}
 	//All I need to check is that the date is in the future
 	@Test(expected = IllegalArgumentException.class)
@@ -40,6 +35,6 @@ public class FutureMeetingTest {
 										Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
 										Calendar.getInstance().get(Calendar.MINUTE) - 1 
 									); //my program will not consider seconds
-		FutureMeeting newtestMeeting = new DummyFutureMeetingImpl(testID,newdate,testContacts);
+		FutureMeeting newtestMeeting = new FutureMeetingImpl(testID,newdate,testContacts);
 	}
 }
