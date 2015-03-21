@@ -9,11 +9,18 @@ public class DummyMeetingImpl implements Meeting {
 
 	private int id;
 	private Calendar meetingDate;
+	private Set<Contact> attendingContacs;
 	
 
-	public DummyMeetingImpl(int id, Calendar meetingDate) {
+	public DummyMeetingImpl(int id, Calendar meetingDate, Set<Contact> attendingContacs) {
 		this.id = id;
 		this.meetingDate = meetingDate;
+		if(attendingContacs.size() > 0) {
+			this.attendingContacs = attendingContacs;
+		}
+		else {
+			throw new IllegalArgumentException("The name of the Contact can't be null");
+		}
 	}
 	
 	@Override
@@ -28,8 +35,7 @@ public class DummyMeetingImpl implements Meeting {
 
 	@Override
 	public Set<Contact> getContacts() {
-		// TODO Auto-generated method stub
-		return null;
+		return attendingContacs;
 	}
 	
 	

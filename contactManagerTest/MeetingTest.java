@@ -2,9 +2,13 @@ package contactManagerTest;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.*;
 
+import contactManager.ContactImpl;
+import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.Meeting;
 
 public class MeetingTest {
@@ -13,10 +17,15 @@ public class MeetingTest {
 	
 	private int testID = 1;
 	private Calendar date = new GregorianCalendar(2014,10,31);
+	private Set<Contact> testContacts = new HashSet<Contact>();
 	
 	@Before
 	public void instantiateClass() {
-		testMeeting = new DummyMeetingImpl(testID,date);
+		Contact testContact1 = new ContactImpl(1,"FirstContact");
+		Contact testContact2 = new ContactImpl(2,"FirstContact2");
+		testContacts.add(testContact1);
+		testContacts.add(testContact2);
+		testMeeting = new DummyMeetingImpl(testID,date,testContacts);
 	}
 	
 	@Test
