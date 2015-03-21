@@ -49,6 +49,11 @@ public class MeetingTest {
 		Assert.assertEquals(testMeeting.getDate(),date);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void contactsCanNotBePassedAsNull() {
+		testMeeting = new MeetingImpl(testID,date,null);
+	}
+	
 	@Test
 	public final void getContactsShouldNotReturnNull() {
 		Assert.assertNotNull(testMeeting.getContacts());
