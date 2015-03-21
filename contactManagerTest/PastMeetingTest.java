@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import contactManager.ContactImpl;
+import contactManager.PastMeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.PastMeeting;
 
@@ -28,7 +29,7 @@ public class PastMeetingTest {
 		Contact testContact2 = new ContactImpl(2,"FirstContact2");
 		testContacts.add(testContact1);
 		testContacts.add(testContact2);
-		testMeeting = new DummyPastMeetingImpl(testID,date,testContacts,testNotes);
+		testMeeting = new PastMeetingImpl(testID,date,testContacts,testNotes);
 	}
 	
 	
@@ -41,7 +42,7 @@ public class PastMeetingTest {
 										Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
 										Calendar.getInstance().get(Calendar.MINUTE) + 1
 									); //my program will not consider seconds
-		PastMeeting newtestMeeting = new DummyPastMeetingImpl(testID,newdate,testContacts,testNotes);
+		PastMeeting newtestMeeting = new PastMeetingImpl(testID,newdate,testContacts,testNotes);
 	}
 	
 	@Test
