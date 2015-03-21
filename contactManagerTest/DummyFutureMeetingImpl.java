@@ -1,6 +1,7 @@
 package contactManagerTest;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import contactManager.MeetingImpl;
@@ -12,7 +13,10 @@ public class DummyFutureMeetingImpl extends MeetingImpl implements FutureMeeting
 	public DummyFutureMeetingImpl(int id, Calendar meetingDate,
 			Set<Contact> attendingContacs) {
 		super(id, meetingDate, attendingContacs);
-		// TODO Auto-generated constructor stub
+		if(meetingDate.compareTo(new GregorianCalendar()) < 0)
+		{
+			throw new IllegalArgumentException("A FutureMeeting must be in the future");
+		}
 	}
 
 }
