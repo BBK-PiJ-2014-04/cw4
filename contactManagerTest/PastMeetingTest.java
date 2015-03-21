@@ -37,9 +37,9 @@ public class PastMeetingTest {
 		Calendar newdate = new GregorianCalendar(
 										Calendar.getInstance().get(Calendar.YEAR),
 										Calendar.getInstance().get(Calendar.MONTH),
-										Calendar.getInstance().get(Calendar.DAY_OF_WEEK),
+										Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
 										Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
-										Calendar.getInstance().get(Calendar.MINUTE + 1)
+										Calendar.getInstance().get(Calendar.MINUTE) + 1
 									); //my program will not consider seconds
 		PastMeeting newtestMeeting = new DummyPastMeetingImpl(testID,newdate,testContacts,testNotes);
 	}
