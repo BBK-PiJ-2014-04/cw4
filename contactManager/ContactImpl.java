@@ -30,12 +30,12 @@ public class ContactImpl implements Contact {
 
 	@Override
 	public String getNotes() {
-		return notes;
+		return (notes != "") ? notes : "There are no notes for this meeting";
 	}
 
 	@Override
 	public void addNotes(String note) {
-		this.notes = (notes.equals(null)) ? "" : notes;
+		this.notes = (notes == null) ? "" : notes;
 	}
 
 }
