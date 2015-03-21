@@ -49,7 +49,7 @@ public class MeetingTest {
 		Assert.assertEquals(testMeeting.getDate(),date);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = NullPointerException.class)
 	public final void contactsCanNotBePassedAsNull() {
 		testMeeting = new MeetingImpl(testID,date,null);
 	}
