@@ -19,7 +19,7 @@ public class FutureMeetingTest {
 	private FutureMeeting testMeeting;
 	
 	private int testID = 1;
-	private Calendar date = new GregorianCalendar(1986,07,27);
+	private Calendar date = new GregorianCalendar(2016,07,27);
 	private Set<Contact> testContacts = new HashSet<Contact>();
 	
 	@Before
