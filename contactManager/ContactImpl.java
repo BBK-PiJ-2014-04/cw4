@@ -11,11 +11,11 @@ public class ContactImpl implements Contact {
 	public ContactImpl(int id, String name) {
 		this.id = id;
 		this.notes = "";
-		if(name != "") {
+		if(name != "" && name != null) {
 			this.name = name;
 		}
 		else {
-			throw new IllegalArgumentException("The name of the Contact can't be null");
+			throw new IllegalArgumentException("The name of the Contact can't be null or empty");
 		}
 	}
 	@Override
@@ -35,10 +35,7 @@ public class ContactImpl implements Contact {
 
 	@Override
 	public void addNotes(String note) {
-		if(note == null) {
-			throw new IllegalArgumentException("Null is an invalid parameter for addNotes");
-		}
-		this.notes = note;
+		this.notes = (notes.equals(null)) ? "" : notes;
 	}
 
 }

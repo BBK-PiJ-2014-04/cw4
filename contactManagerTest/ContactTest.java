@@ -49,10 +49,11 @@ public class ContactTest {
 		Assert.assertNotNull(testContact.getNotes());
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
+	/*@Test(expected = IllegalArgumentException.class)
 	public final void setNotesShouldNotAcceptNull(){
 		testContact.addNotes(null);
-	}
+	}*/
+	//Commented out following feedback given from the lecturer about not using too many exceptions, unless it's strictly necessary 
 	
 	@Test
 	public final void getNotesShouldReturnTheSameNoteSetWithAddNotes(){
