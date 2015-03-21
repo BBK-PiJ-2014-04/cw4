@@ -16,11 +16,14 @@ public class MeetingImpl implements Meeting {
 	public MeetingImpl(int id, Calendar meetingDate, Set<Contact> attendingContacs) {
 		this.id = id;
 		this.meetingDate = meetingDate;
-		if(attendingContacs.size() > 0) {
-			this.attendingContacs = attendingContacs;
+		this.attendingContacs = attendingContacs;
+		try {
+			if(this.attendingContacs.size() < 1) {
+				throw new IllegalArgumentException("The number of attending Contacts must be at least 1");
+			}
 		}
-		else {
-			throw new IllegalArgumentException("The name of the Contact can't be null");
+		catch(NullPointerException ex) {
+			throw ex;
 		}
 	}
 	
