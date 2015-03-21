@@ -1,12 +1,11 @@
 package contactManagerTest;
 
-import org.junit.*;
+/*import org.junit.*;
 
-import contactManagerInterfaces.*;
-import contactManagerClasses.*;
+import contactManagerInterfaces.*;*/
 
 public class ContactManagerTest {
-	
+	/*
 	Contact testContact = new DummyContactImpl();
 	
 	
@@ -22,6 +21,6 @@ public class ContactManagerTest {
 	@Test(expected = RuntimeException.class)
 	public final void instantiatenewContactClass(){
 		ContactImpl testContactImpl = new ContactImpl();
-	}
+	}*/
 	
 }

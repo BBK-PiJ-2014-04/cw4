@@ -1,4 +1,4 @@
-package contactManagerTest;
+package contactManager;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,11 +8,11 @@ import contactManager.MeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.PastMeeting;
 
-public class DummyPastMeetingImpl extends MeetingImpl implements PastMeeting {
+public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
 	String notes;
 	
-	public DummyPastMeetingImpl(int id, Calendar meetingDate,
+	public PastMeetingImpl(int id, Calendar meetingDate,
 			Set<Contact> attendingContacs, String notes) {
 		super(id, meetingDate, attendingContacs);
 		if(meetingDate.compareTo(new GregorianCalendar()) >= 0)
