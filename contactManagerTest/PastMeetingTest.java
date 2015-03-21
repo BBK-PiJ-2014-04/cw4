@@ -28,7 +28,7 @@ public class PastMeetingTest {
 		Contact testContact2 = new ContactImpl(2,"FirstContact2");
 		testContacts.add(testContact1);
 		testContacts.add(testContact2);
-		testMeeting = new DummyPastMeetingImpl(testID,date,testContacts);
+		testMeeting = new DummyPastMeetingImpl(testID,date,testContacts,testNotes);
 	}
 	
 	
@@ -41,7 +41,7 @@ public class PastMeetingTest {
 										Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
 										Calendar.getInstance().get(Calendar.MINUTE + 1)
 									); //my program will not consider seconds
-		PastMeeting newtestMeeting = new DummyPastMeetingImpl(testID,newdate,testContacts);
+		PastMeeting newtestMeeting = new DummyPastMeetingImpl(testID,newdate,testContacts,testNotes);
 	}
 	
 	@Test
