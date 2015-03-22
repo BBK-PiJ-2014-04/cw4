@@ -7,21 +7,35 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import contactManager.ContactImpl;
 import contactManagerInterfaces.*;
 
 public class ContactManagerTest {
 	
 	Contact testContact;
-	Calendar pastdate;
-	Calendar futuredate;
+	Contact testContact2;
+	Contact testContact3;
+	ContactManager testCM;
+	Calendar pastDate;
+	Calendar futureDate;
 	
 	
 	@Before
 	public void instantiateClass() {
-		pastdate = new GregorianCalendar(1986,07,27);
-		futuredate = new GregorianCalendar(1986,07,27);
+		pastDate = new GregorianCalendar(1986,07,27);
+		futureDate = new GregorianCalendar(2015,07,27);
+		testCM = new DummyContactManagerImpl();
 	}
 	
+	//The following tests will require very little implementation, as they've been already handled in the implementation of the Meeting Class
+	@Test(expected = IllegalArgumentException.class)
+	public final void addFutureMeetingShouldNotAcceptANullContactList() {
+		testCM.addFutureMeeting(null, futureDate);
+	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void addFutureMeetingShouldNotAcceptAPastDate() {
+		testCM.addFutureMeeting(null, pastDate);
+	}
 	
 }
