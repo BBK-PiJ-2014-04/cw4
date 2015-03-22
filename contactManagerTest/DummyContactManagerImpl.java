@@ -76,7 +76,9 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void addNewContact(String name, String notes) {
-		// TODO Auto-generated method stub
+		ContactImpl newContact = new ContactImpl(0,name);
+		newContact.addNotes(notes);
+		Contacts.add(newContact);
 		
 	}
 
