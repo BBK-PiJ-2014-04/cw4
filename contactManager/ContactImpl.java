@@ -35,7 +35,10 @@ public class ContactImpl implements Contact {
 
 	@Override
 	public void addNotes(String note) {
-		this.notes = (notes == null) ? "" : notes;
+		if(note == null) {
+			throw new IllegalArgumentException("The notes can't be null");
+		}
+		this.notes = notes;
 	}
 
 }
