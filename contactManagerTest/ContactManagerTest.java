@@ -54,4 +54,10 @@ public class ContactManagerTest {
 		Assert.assertTrue(false);
 	}
 	
+	@Test(expected = NullPointerException.class)
+	public final void getContactsShouldNotAcceptNull() {
+		String name = null;
+		testCM.getContacts(name);
+	}
+	
 }
