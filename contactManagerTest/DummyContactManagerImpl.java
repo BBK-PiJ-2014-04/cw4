@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
+import contactManager.FutureMeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.ContactManager;
 import contactManagerInterfaces.FutureMeeting;
@@ -14,7 +15,7 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		// TODO Auto-generated method stub
+		Meeting futureMeeting = new FutureMeetingImpl(1, date, contacts);
 		return 0;
 	}
 
