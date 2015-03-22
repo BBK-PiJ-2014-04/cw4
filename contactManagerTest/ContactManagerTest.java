@@ -75,7 +75,7 @@ public class ContactManagerTest {
 	
 	//Again, mostly of the functionality for addNewContact have already been tested for the Contact Class
 	//So, the tests, will succeed with a minimum implementation.
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public final void addNewContactShouldNotAcceptNullForName() {
 		String name = null;
 		String notes = "something";
