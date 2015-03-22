@@ -82,7 +82,7 @@ public class ContactManagerTest {
 		testCM.addNewContact(name, notes);
 	}
 	
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public final void addNewContactShouldNotAcceptNullForNotes() {
 		String name = "something";
 		String notes = null;
