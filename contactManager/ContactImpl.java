@@ -38,7 +38,7 @@ public class ContactImpl implements Contact {
 		if(note == null) {
 			throw new IllegalArgumentException("The notes can't be null");
 		}
-		this.notes = notes;
+		this.notes = note;
 	}
 
 }
