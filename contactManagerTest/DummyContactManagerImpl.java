@@ -82,7 +82,10 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public Set<Contact> getContacts(String name) {
-		// TODO Auto-generated method stub
+		if(name == null)
+		{
+			throw new NullPointerException();
+		}
 		return null;
 	}
 
