@@ -1,9 +1,13 @@
 package contactManagerTest;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import contactManager.ContactImpl;
 import contactManager.FutureMeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.ContactManager;
@@ -13,6 +17,8 @@ import contactManagerInterfaces.PastMeeting;
 
 public class DummyContactManagerImpl implements ContactManager {
 
+	List<ContactImpl> Contacts = new ArrayList<ContactImpl>();
+	
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		Meeting futureMeeting = new FutureMeetingImpl(1, date, contacts);
@@ -82,11 +88,16 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public Set<Contact> getContacts(String name) {
+		Set<Contact> listOfContacts = new HashSet<Contact>();
 		if(name == null)
 		{
 			throw new NullPointerException();
 		}
-		return null;
+		for(Iterator<ContactImpl> i = Contacts.iterator(); i.hasNext(); ) {
+		    ContactImpl item = i.next();
+		    listOfContacts.add(item);
+		}
+		return listOfContacts;
 	}
 
 	@Override
