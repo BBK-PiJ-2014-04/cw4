@@ -115,4 +115,13 @@ public class ContactManagerTest {
 		Assert.assertTrue(nowIn);
 	}
 	
+	//The first implementation is going to have a constant ID. That of course should throw an exception. 
+	@Test(expected = IllegalArgumentException.class)
+	public final void addNewContactShouldBePossibleToCallRepeatedly(){
+		String name = "something";
+		String notes = "something";
+		testCM.addNewContact(notes, notes);
+		testCM.addNewContact(notes, notes);
+	}
+	
 }
