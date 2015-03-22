@@ -60,4 +60,16 @@ public class ContactManagerTest {
 		testCM.getContacts(name);
 	}
 	
+	@Test
+	public final void getContactsShouldNotReturnNull() {
+		String name = "test";
+		Assert.assertNotNull(testCM.getContacts(name));
+	}
+	
+	@Test
+	public final void getContactsShouldReturnASet() {
+		String name = "test";
+		Assert.assertTrue(testCM.getContacts(name) instanceof Set<?>);
+	}
+	
 }
