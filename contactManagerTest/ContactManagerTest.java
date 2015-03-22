@@ -97,7 +97,7 @@ public class ContactManagerTest {
 		boolean nowIn = false;
 		//Making sure the name is not already in
 		do {
-			for(Iterator<Contact> i = testContacts.iterator(); i.hasNext(); ) {
+			for(Iterator<Contact> i = testCM.getContacts(name).iterator(); i.hasNext(); ) {
 				Contact item = (Contact) i.next();
 			    if(item.getName().equals(name))
 			    	alreadyIn = true;
@@ -107,7 +107,7 @@ public class ContactManagerTest {
 			}
 		} while(alreadyIn);
 		testCM.addNewContact(name, notes);
-		for(Iterator<Contact> i = testContacts.iterator(); i.hasNext(); ) {
+		for(Iterator<Contact> i = testCM.getContacts(name).iterator(); i.hasNext(); ) {
 			Contact item = (Contact) i.next();
 		    if(item.getName().equals(name))
 		    	nowIn = true;
