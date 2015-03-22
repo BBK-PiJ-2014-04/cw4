@@ -45,4 +45,13 @@ public class ContactManagerTest {
 		testCM.addFutureMeeting(testContacts, pastDate);
 	}
 	
+	//We need to test now if the Contacts passed to addFutureMeeting have already been added to the Contact Manager.
+	//So, we will now develop tests to add Contacts, hence we're going to need a structure to save contacts in.
+	
+	@Test
+	public final void addFutureMeetingShouldNotAcceptContactsThatAreNotStored() {
+		//dependentOnTheTestonAddingContacts
+		Assert.assertTrue(false);
+	}
+	
 }
