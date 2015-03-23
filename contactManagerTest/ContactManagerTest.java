@@ -56,6 +56,17 @@ public class ContactManagerTest {
 		testCM.addFutureMeeting(testContacts, futureDate);
 	}
 	
+	@Test
+	public final void addFutureMeetingShouldReturnValidAndDifferentIds() {
+		String name = "something";
+		String notes = "something";
+		Calendar futureDate2 = new GregorianCalendar(2015,07,29);
+		testCM.addNewContact(name, notes);
+		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		int secondID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		Assert.assertNotEquals(firstID, secondID);
+	}
+	
 	@Test(expected = NullPointerException.class)
 	public final void getContactsShouldNotAcceptNull() {
 		String name = null;
