@@ -17,11 +17,16 @@ import contactManagerInterfaces.PastMeeting;
 
 public class DummyContactManagerImpl implements ContactManager {
 
-	List<ContactImpl> Contacts = new ArrayList<ContactImpl>();
+	List<ContactImpl> contactsList = new ArrayList<ContactImpl>();
 	
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		Meeting futureMeeting = new FutureMeetingImpl(1, date, contacts);
+		if(contactsList.containsAll(contacts)) {
+			Meeting futureMeeting = new FutureMeetingImpl(1, date, contacts);
+		}
+		else {
+			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
+		}
 		return 0;
 	}
 
@@ -76,9 +81,9 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void addNewContact(String name, String notes) {
-		ContactImpl newContact = new ContactImpl(getNextAvailableID(Contacts),name);
+		ContactImpl newContact = new ContactImpl(getNextAvailableID(contactsList),name);
 		newContact.addNotes(notes);
-		Contacts.add(newContact);
+		contactsList.add(newContact);
 		
 	}
 
@@ -95,7 +100,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		{
 			throw new NullPointerException();
 		}
-		for(Iterator<ContactImpl> i = Contacts.iterator(); i.hasNext(); ) {
+		for(Iterator<ContactImpl> i = contactsList.iterator(); i.hasNext(); ) {
 		    ContactImpl item = i.next();
 		    listOfContacts.add(item);
 		}
