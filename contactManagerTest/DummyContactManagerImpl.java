@@ -9,6 +9,7 @@ import java.util.Set;
 
 import contactManager.ContactImpl;
 import contactManager.FutureMeetingImpl;
+import contactManager.MeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.ContactManager;
 import contactManagerInterfaces.FutureMeeting;
@@ -18,16 +19,19 @@ import contactManagerInterfaces.PastMeeting;
 public class DummyContactManagerImpl implements ContactManager {
 
 	List<ContactImpl> contactsList = new ArrayList<ContactImpl>();
+	List<MeetingImpl> meetingsList = new ArrayList<MeetingImpl>();
 	
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+		int nextID;
 		if(contactsList.containsAll(contacts)) {
-			Meeting futureMeeting = new FutureMeetingImpl(1, date, contacts);
+			nextID = getNextAvailableID(meetingsList);
+			meetingsList.add(new FutureMeetingImpl(nextID, date, contacts));
+			return nextID;
 		}
 		else {
 			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
 		}
-		return 0;
 	}
 
 	@Override
