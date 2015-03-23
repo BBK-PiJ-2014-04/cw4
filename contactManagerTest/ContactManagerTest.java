@@ -136,4 +136,30 @@ public class ContactManagerTest {
 		testCM.addNewContact(name, notes);
 	}
 	
+	@Test(expected = NullPointerException.class)
+	public final void addPastMeetingShouldNotAcceptANullContactList() {
+		testCM.addNewPastMeeting(null, pastDate, "");
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public final void addPastMeetingShouldNotAcceptANullDate() {
+		testContacts.add(testContact);
+		testContacts.add(testContact2);
+		testCM.addNewPastMeeting(testContacts, null, "");
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public final void addPastMeetingShouldNotAcceptNullNotes() {
+		testContacts.add(testContact);
+		testContacts.add(testContact2);
+		testCM.addNewPastMeeting(testContacts, pastDate , null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void addPastMeetingShouldNotAcceptAFutureDate() {
+		testContacts.add(testContact);
+		testContacts.add(testContact2);
+		testCM.addNewPastMeeting(testContacts, futureDate, "");
+	}
+	
 }
