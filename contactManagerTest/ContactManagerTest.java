@@ -116,12 +116,12 @@ public class ContactManagerTest {
 	}
 	
 	//The first implementation is going to have a constant ID. That of course should throw an exception. 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public final void addNewContactShouldBePossibleToCallRepeatedly(){
 		String name = "something";
 		String notes = "something";
-		testCM.addNewContact(notes, notes);
-		testCM.addNewContact(notes, notes);
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact(name, notes);
 	}
 	
 }
