@@ -162,4 +162,25 @@ public class ContactManagerTest {
 		testCM.addNewPastMeeting(testContacts, futureDate, "");
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void addPastMeetingShouldNotAcceptContactsThatAreNotStored() {
+		testContacts.add(testContact);
+		testContacts.add(testContact2);
+		testCM.addNewPastMeeting(testContacts, futureDate, "");
+	}
+	
+	//To run this test successfully I will need to implement the getPastMeetingList method.
+	@Test
+	public final void addPastMeetingShouldAddOneMeetingToThePastMeetingList() {
+		String name = "something";
+		String notes = "something";
+		testCM.addNewContact(name, notes);
+		int firstCount = testCM.getPastMeetingList(testCM.getContacts(name).iterator().next()).size();
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
+		int secondCount = testCM.getPastMeetingList(testCM.getContacts(name).iterator().next()).size();
+		Assert.assertEquals(firstCount+1, secondCount);
+	}
+	
+	
+	
 }
