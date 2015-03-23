@@ -76,7 +76,7 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void addNewContact(String name, String notes) {
-		ContactImpl newContact = new ContactImpl(0,name);
+		ContactImpl newContact = new ContactImpl(getNextAvailableID(Contacts),name);
 		newContact.addNotes(notes);
 		Contacts.add(newContact);
 		
@@ -106,6 +106,10 @@ public class DummyContactManagerImpl implements ContactManager {
 	public void flush() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public int getNextAvailableID(List<?> mylist){
+		return mylist.size() + 1;
 	}
 
 }
