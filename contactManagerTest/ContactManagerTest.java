@@ -29,6 +29,8 @@ public class ContactManagerTest {
 		pastDate = new GregorianCalendar(1986,07,27);
 		futureDate = new GregorianCalendar(2015,07,27);
 		testCM = new DummyContactManagerImpl();
+		testContact = new ContactImpl(1,"FirstContact");
+		testContact2 = new ContactImpl(2,"FirstContact2");
 	}
 	
 	//The following tests will require very little implementation, as they've been already handled in the implementation of the Meeting Class
@@ -39,9 +41,7 @@ public class ContactManagerTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public final void addFutureMeetingShouldNotAcceptAPastDate() {
-		Contact testContact1 = new ContactImpl(1,"FirstContact");
-		Contact testContact2 = new ContactImpl(2,"FirstContact2");
-		testContacts.add(testContact1);
+		testContacts.add(testContact);
 		testContacts.add(testContact2);
 		testCM.addFutureMeeting(testContacts, pastDate);
 	}
@@ -49,10 +49,11 @@ public class ContactManagerTest {
 	//We need to test now if the Contacts passed to addFutureMeeting have already been added to the Contact Manager.
 	//So, we will now develop tests to add Contacts, hence we're going to need a structure to save contacts in.
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public final void addFutureMeetingShouldNotAcceptContactsThatAreNotStored() {
-		//dependentOnTheTestonAddingContacts
-		Assert.assertTrue(false);
+		testContacts.add(testContact);
+		testContacts.add(testContact2);
+		testCM.addFutureMeeting(testContacts, futureDate);
 	}
 	
 	@Test(expected = NullPointerException.class)
