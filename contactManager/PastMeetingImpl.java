@@ -19,7 +19,12 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 		{
 			throw new IllegalArgumentException("A PastMeeting must be in the past");
 		}
-		this.notes = (notes == null) ? "" : notes;
+		if(notes == null) {
+			throw new NullPointerException("The notes can't be null");
+		}
+		else {
+			this.notes = notes;
+		}
 	}
 
 	@Override

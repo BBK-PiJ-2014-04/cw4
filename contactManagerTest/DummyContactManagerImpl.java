@@ -10,6 +10,7 @@ import java.util.Set;
 import contactManager.ContactImpl;
 import contactManager.FutureMeetingImpl;
 import contactManager.MeetingImpl;
+import contactManager.PastMeetingImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.ContactManager;
 import contactManagerInterfaces.FutureMeeting;
@@ -73,8 +74,8 @@ public class DummyContactManagerImpl implements ContactManager {
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
-		// TODO Auto-generated method stub
-		
+		int nextID = getNextAvailableID(meetingsList);
+		meetingsList.add(new PastMeetingImpl(nextID, date, contacts, text));
 	}
 
 	@Override
