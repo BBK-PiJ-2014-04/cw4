@@ -245,4 +245,11 @@ public class ContactManagerTest {
 		int id = 1;
 		Assert.assertTrue(testCM.getContacts(id) instanceof Set<?>);
 	}
+	
+	@Test
+	public final void getContactsWithIDsShouldAcceptIDOfContactThatAreStored() {
+		int id = 1;
+		testCM.addNewContact(name, notes);
+		testCM.getContacts(1);
+	}
 }
