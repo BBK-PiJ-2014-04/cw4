@@ -193,7 +193,7 @@ public class ContactManagerTest {
 		testCM.addNewContact(name, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate2, notes);
-		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
+		List<PastMeeting> testlist = testCM.getPastMeetingList(testCM.getContacts(name).iterator().next());
 		Calendar prevDate = null;
 		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
 			//I will order from the most recent till the least recent
@@ -216,9 +216,9 @@ public class ContactManagerTest {
 		testCM.addNewContact("tmest2", notes);
 		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate2, notes);
-		testCM.addNewPastMeeting(testCM.getContacts("tme"), pastDate, notes);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
 		testCM.addNewPastMeeting(testCM.getContacts("st3"), pastDate2, notes);
-		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
+		List<PastMeeting> testlist = testCM.getPastMeetingList(testCM.getContacts("test3").iterator().next());
 		List<Integer> IDLists = new ArrayList<Integer>();
 		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
 			//I will order from the most recent till the least recent
