@@ -233,4 +233,16 @@ public class ContactManagerTest {
 		Assert.assertTrue(true);
 	}
 	
+	//Now that we have all the methods that we need in order to test other methods, we can test the getContacts with IDs and then proceed in the same order in which the method are listed on the interface
+	@Test(expected = IllegalArgumentException.class)
+	public final void getContactsWithIDsShouldNotAcceptIDOfContactThatAreNotStored() {
+		int id = 1;
+		testCM.getContacts(1);
+	}
+	
+	@Test
+	public final void getContactsWithIDsShouldReturnASet() {
+		int id = 1;
+		Assert.assertTrue(testCM.getContacts(id) instanceof Set<?>);
+	}
 }
