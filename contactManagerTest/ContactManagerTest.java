@@ -1,9 +1,11 @@
 package contactManagerTest;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -11,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import contactManager.ContactImpl;
+import contactManager.PastMeetingImpl;
 import contactManagerInterfaces.*;
 
 public class ContactManagerTest {
@@ -181,6 +184,48 @@ public class ContactManagerTest {
 		Assert.assertEquals(firstCount+1, secondCount);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getPastMeetingListShouldNotAcceptNull(){
+		testCM.getPastMeetingList(null);
+	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getPastMeetingListShouldNotAcceptAContactThatIsNotStored() {
+		testCM.getPastMeetingList(testContact);
+	}
+	
+	@Test
+	public final void getPastMeetingListShouldReturnMeetingsCronologicallySorted() {
+		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
+		Calendar prevDate = null;
+		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Calendar currentDate = i.next().getDate();
+			if(prevDate == null || prevDate.compareTo(currentDate) <= 0) {
+				prevDate = currentDate;
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
+	
+	@Test
+	public final void getPastMeetingListShouldNotReturnAnyDuplicate() {
+		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
+		List<Integer> IDLists = new ArrayList<Integer>();
+		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Integer currentID = i.next().getId();
+			if(!IDLists.contains(currentID)) {
+				IDLists.add(currentID);
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
 	
 }
