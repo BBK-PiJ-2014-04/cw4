@@ -241,9 +241,10 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public final void getContactsWithIDsShouldReturnASet() {
+	public final void getContactsWithIDsShouldReturnANonEmptySet() {
 		int id = 1;
-		Assert.assertTrue(testCM.getContacts(id) instanceof Set<?>);
+		testCM.addNewContact(name, notes);
+		Assert.assertTrue(testCM.getContacts(id).size() > 0);
 	}
 	
 	@Test
