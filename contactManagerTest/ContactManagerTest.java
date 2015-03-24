@@ -43,7 +43,7 @@ public class ContactManagerTest {
 	}
 	
 	//The following tests will require very little implementation, as they've been already handled in the implementation of the Meeting Class
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public final void addFutureMeetingShouldNotAcceptANullContactList() {
 		testCM.addFutureMeeting(null, futureDate);
 	}

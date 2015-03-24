@@ -2,6 +2,8 @@ package contactManagerTest;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -24,15 +26,14 @@ public class DummyContactManagerImpl implements ContactManager {
 	
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+		if(contacts == null) {
+			throw new IllegalArgumentException("The Contacts set can't be null");
+		}
 		int nextID;
-		if(contactsList.containsAll(contacts)) {
-			nextID = getNextAvailableID(meetingsList);
-			meetingsList.add(new FutureMeetingImpl(nextID, date, contacts));
-			return nextID;
-		}
-		else {
-			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
-		}
+		checkRegisteredContacts(contacts);
+		nextID = getNextAvailableID(meetingsList);
+		meetingsList.add(new FutureMeetingImpl(nextID, date, contacts));
+		return nextID;
 	}
 
 	@Override
@@ -67,7 +68,18 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
+		if(contact == null) {
+			throw new IllegalArgumentException("The Contact passed can't be null");
+		}
+		checkRegisteredContacts(contact);
 		List<PastMeeting> listOfMeetings = new ArrayList<PastMeeting>();
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    PastMeetingImpl item = (PastMeetingImpl) i.next();
+		    if(item.getDate().compareTo(new GregorianCalendar()) < 0 && item.getContacts().contains(contact)) {
+		    	listOfMeetings.add(item);
+		    }
+		}
+		Collections.sort(listOfMeetings, (precMeeting,succMeeting) -> precMeeting.getDate().compareTo(succMeeting.getDate()));
 		return listOfMeetings;
 	}
 
@@ -121,5 +133,18 @@ public class DummyContactManagerImpl implements ContactManager {
 	public int getNextAvailableID(List<?> mylist){
 		return mylist.size() + 1;
 	}
-
+	
+	public void checkRegisteredContacts(Set<Contact> contactsSet) {
+		if(!contactsList.containsAll(contactsSet)) {
+			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
+	
+		}
+	}
+	
+	public void checkRegisteredContacts(Contact contact) {
+		if(!contactsList.contains(contact)) {
+			throw new IllegalArgumentException("The contact is not registered in the Contact Manager");
+	
+		}
+	}
 }
