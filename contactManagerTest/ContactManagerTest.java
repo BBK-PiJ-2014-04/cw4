@@ -24,6 +24,8 @@ public class ContactManagerTest {
 	ContactManager testCM;
 	Calendar pastDate;
 	Calendar futureDate;
+	String name;
+	String notes;
 	private Set<Contact> testContacts = new HashSet<Contact>();
 	
 	
@@ -34,6 +36,8 @@ public class ContactManagerTest {
 		testCM = new DummyContactManagerImpl();
 		testContact = new ContactImpl(1,"FirstContact");
 		testContact2 = new ContactImpl(2,"FirstContact2");
+		name = "something";
+		notes = "something";
 	}
 	
 	//The following tests will require very little implementation, as they've been already handled in the implementation of the Meeting Class
@@ -61,8 +65,6 @@ public class ContactManagerTest {
 	
 	@Test
 	public final void addFutureMeetingShouldReturnValidAndDifferentIds() {
-		String name = "something";
-		String notes = "something";
 		Calendar futureDate2 = new GregorianCalendar(2015,07,29);
 		testCM.addNewContact(name, notes);
 		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
@@ -72,19 +74,17 @@ public class ContactManagerTest {
 	
 	@Test(expected = NullPointerException.class)
 	public final void getContactsShouldNotAcceptNull() {
-		String name = null;
+		name = null;
 		testCM.getContacts(name);
 	}
 	
 	@Test
 	public final void getContactsShouldNotReturnNull() {
-		String name = "test";
 		Assert.assertNotNull(testCM.getContacts(name));
 	}
 	
 	@Test
 	public final void getContactsShouldReturnASet() {
-		String name = "test";
 		Assert.assertTrue(testCM.getContacts(name) instanceof Set<?>);
 	}
 	
@@ -92,22 +92,18 @@ public class ContactManagerTest {
 	//So, the tests, will succeed with a minimum implementation.
 	@Test(expected = IllegalArgumentException.class)
 	public final void addNewContactShouldNotAcceptNullForName() {
-		String name = null;
-		String notes = "something";
+		name = null;
 		testCM.addNewContact(name, notes);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public final void addNewContactShouldNotAcceptNullForNotes() {
-		String name = "something";
-		String notes = null;
+		notes = null;
 		testCM.addNewContact(name, notes);
 	}
 	
 	@Test
 	public final void addNewContactShouldAddTheContactOnTheContacsList() {
-		String name = "something";
-		String notes = "something";
 		boolean alreadyIn = false;
 		boolean nowIn = false;
 		//Making sure the name is not already in
@@ -133,8 +129,6 @@ public class ContactManagerTest {
 	//The first implementation is going to have a constant ID. That of course should throw an exception. 
 	@Test
 	public final void addNewContactShouldBePossibleToCallRepeatedly(){
-		String name = "something";
-		String notes = "something";
 		testCM.addNewContact(name, notes);
 		testCM.addNewContact(name, notes);
 	}
@@ -175,8 +169,6 @@ public class ContactManagerTest {
 	//To run this test successfully I will need to implement the getPastMeetingList method.
 	@Test
 	public final void addPastMeetingShouldAddOneMeetingToThePastMeetingList() {
-		String name = "something";
-		String notes = "something";
 		testCM.addNewContact(name, notes);
 		int firstCount = testCM.getPastMeetingList(testCM.getContacts(name).iterator().next()).size();
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
@@ -196,6 +188,10 @@ public class ContactManagerTest {
 	
 	@Test
 	public final void getPastMeetingListShouldReturnMeetingsCronologicallySorted() {
+		Calendar pastDate2 = new GregorianCalendar(1996,07,27);
+		testCM.addNewContact(name, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate2, notes);
 		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
 		Calendar prevDate = null;
 		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
