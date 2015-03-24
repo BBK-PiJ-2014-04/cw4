@@ -67,8 +67,8 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PastMeeting> listOfMeetings = new ArrayList<PastMeeting>();
+		return listOfMeetings;
 	}
 
 	@Override
