@@ -106,8 +106,22 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public Set<Contact> getContacts(int... ids) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Contact> listOfContacts = new HashSet<Contact>();
+		boolean entered = false;
+		for (int m : ids) {
+			for(Iterator<ContactImpl> i = contactsList.iterator(); i.hasNext(); ) {
+			    ContactImpl item = i.next();
+			    if(m == item.getId()) {
+			    	listOfContacts.add(item);
+			    	entered = true;
+			    }
+			    if(!entered) {
+			    	throw new IllegalArgumentException("The ID " + m + " doesn't belong to the contact list");
+			    }
+			    entered = false;
+			}
+		}
+		return listOfContacts;
 	}
 
 	@Override
