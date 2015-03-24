@@ -23,6 +23,7 @@ public class ContactManagerTest {
 	Contact testContact3;
 	ContactManager testCM;
 	Calendar pastDate;
+	Calendar pastDate2;
 	Calendar futureDate;
 	String name;
 	String notes;
@@ -32,6 +33,7 @@ public class ContactManagerTest {
 	@Before
 	public void instantiateClass() {
 		pastDate = new GregorianCalendar(1986,07,27);
+		pastDate2 = new GregorianCalendar(1996,07,27);
 		futureDate = new GregorianCalendar(2015,07,27);
 		testCM = new DummyContactManagerImpl();
 		testContact = new ContactImpl(1,"FirstContact");
@@ -188,7 +190,6 @@ public class ContactManagerTest {
 	
 	@Test
 	public final void getPastMeetingListShouldReturnMeetingsCronologicallySorted() {
-		Calendar pastDate2 = new GregorianCalendar(1996,07,27);
 		testCM.addNewContact(name, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate2, notes);
@@ -209,6 +210,14 @@ public class ContactManagerTest {
 	
 	@Test
 	public final void getPastMeetingListShouldNotReturnAnyDuplicate() {
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact("test1", notes);
+		testCM.addNewContact("test3", notes);
+		testCM.addNewContact("tmest2", notes);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate2, notes);
+		testCM.addNewPastMeeting(testCM.getContacts("tme"), pastDate, notes);
+		testCM.addNewPastMeeting(testCM.getContacts("st3"), pastDate2, notes);
 		List<PastMeeting> testlist = testCM.getPastMeetingList(testContact);
 		List<Integer> IDLists = new ArrayList<Integer>();
 		for(Iterator<PastMeeting> i = testlist.iterator(); i.hasNext(); ) {
