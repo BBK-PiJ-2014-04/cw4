@@ -109,17 +109,20 @@ public class DummyContactManagerImpl implements ContactManager {
 		Set<Contact> listOfContacts = new HashSet<Contact>();
 		boolean entered = false;
 		for (int m : ids) {
+			entered = false;
 			for(Iterator<ContactImpl> i = contactsList.iterator(); i.hasNext(); ) {
 			    ContactImpl item = i.next();
 			    if(m == item.getId()) {
 			    	listOfContacts.add(item);
 			    	entered = true;
 			    }
-			    if(!entered) {
-			    	throw new IllegalArgumentException("The ID " + m + " doesn't belong to the contact list");
-			    }
-			    entered = false;
 			}
+			if(!entered) {
+		    	break;
+		    }
+		}
+		if(contactsList.size() == 0 || !entered) {
+			throw new IllegalArgumentException("One of the IDs doesn't belong to the contact list");
 		}
 		return listOfContacts;
 	}
