@@ -277,10 +277,20 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public final void getFutureMeetingShouldReturnAPastMeetingifItsNotNull() {
+	public final void getMeetingCanReturnAFutureMeetingifItsNotNull() {
 		testCM.addNewContact(name, notes);
 		testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
-		FutureMeeting myFutureMeeting = testCM.getFutureMeeting(1);
-		Assert.assertNotNull(myFutureMeeting.getDate());
+		Meeting myMeetingInTheFuture = testCM.getMeeting(1);
+		Assert.assertNotNull(myMeetingInTheFuture.getDate());
 	}
+	
+	@Test
+	public final void getMeetingCanReturnAAPastMeetingifItsNotNull() {
+		testCM.addNewContact(name, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
+		Meeting myMeetingInThePast = testCM.getMeeting(1);
+		Assert.assertNotNull(myMeetingInThePast.getDate());
+	}
+	
+	
 }
