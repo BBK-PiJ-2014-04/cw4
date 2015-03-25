@@ -264,8 +264,10 @@ public class ContactManagerTest {
 	@Test
 	public final void getPastMeetingShouldReturnAPastMeetingifItsNotNull() {
 		testCM.addNewContact(name, notes);
-		testCM.addNewPastMeeting(testCM.getContacts(name), PastDate, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
 		PastMeeting myPastMeeting = testCM.getPastMeeting(1);
 		Assert.assertNotNull(myPastMeeting.getDate());
 	}
+	
+	
 }

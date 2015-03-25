@@ -38,7 +38,17 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		// TODO Auto-generated method stub
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    MeetingImpl item = i.next();
+		    if(id == item.getId()) {
+		    	if(item.getDate().compareTo(getTodayDate()) > 0) {
+		    		throw new IllegalArgumentException("The requested meeting is in the future!");
+		    	}
+		    	else {
+		    		return (PastMeeting) item;
+		    	}
+		    }
+		}
 		return null;
 	}
 
@@ -156,6 +166,10 @@ public class DummyContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
 	
 		}
+	}
+	
+	public Calendar getTodayDate() {
+		return new GregorianCalendar();
 	}
 	
 	public void checkRegisteredContacts(Contact contact) {
