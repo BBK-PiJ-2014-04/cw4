@@ -426,6 +426,14 @@ public class ContactManagerTest {
 		testCM.addMeetingNotes(1, null);
 	}
 	
+	@Test
+	public final void addMeetingNotesShouldActuallySaveTheNotes(){
+		testCM.addNewContact(name, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, "");
+		testCM.addMeetingNotes(1, notes);
+		Assert.assertTrue(testCM.getPastMeeting(1).getNotes().equals(notes));
+	}
+	
 	
 	
 }
