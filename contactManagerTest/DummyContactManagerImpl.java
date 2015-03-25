@@ -96,7 +96,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		return listOfMeetings;
 	}
 
-	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen
+	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen or have happened
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
 		// TODO Auto-generated method stub
