@@ -54,7 +54,17 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
-		// TODO Auto-generated method stub
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    MeetingImpl item = i.next();
+		    if(id == item.getId()) {
+		    	if(item.getDate().compareTo(getTodayDate()) <= 0) {
+		    		throw new IllegalArgumentException("The requested meeting is in the future!");
+		    	}
+		    	else {
+		    		return (FutureMeeting) item;
+		    	}
+		    }
+		}
 		return null;
 	}
 
