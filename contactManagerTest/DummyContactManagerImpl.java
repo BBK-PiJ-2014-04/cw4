@@ -81,8 +81,19 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		if(contact == null) {
+			throw new IllegalArgumentException("The Contact passed can't be null");
+		}
+		checkRegisteredContacts(contact);
+		List<Meeting> listOfMeetings = new ArrayList<Meeting>();
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    FutureMeetingImpl item = (FutureMeetingImpl) i.next();
+		    if(item.getDate().compareTo(new GregorianCalendar()) > 0 && item.getContacts().contains(contact)) {
+		    	listOfMeetings.add(item);
+		    }
+		}
+		Collections.sort(listOfMeetings, (precMeeting,succMeeting) -> precMeeting.getDate().compareTo(succMeeting.getDate()));
+		return listOfMeetings;
 	}
 
 	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen
