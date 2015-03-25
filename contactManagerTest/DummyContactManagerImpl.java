@@ -99,8 +99,16 @@ public class DummyContactManagerImpl implements ContactManager {
 	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen or have happened
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
-		// TODO Auto-generated method stub
-		return null;
+		//I will consider just the YEAR/MONTH/DAY of the date passed and then give back all the meetings on that day ordered
+		List<Meeting> listOfMeetings = new ArrayList<Meeting>();
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    MeetingImpl item = (MeetingImpl) i.next();
+		    if(clearDate(item.getDate()).compareTo(clearDate(date)) == 0) {
+		    	listOfMeetings.add(item);
+		    }
+		}
+		Collections.sort(listOfMeetings, (precMeeting,succMeeting) -> precMeeting.getDate().compareTo(succMeeting.getDate()));
+		return listOfMeetings;
 	}
 
 	@Override
@@ -197,6 +205,14 @@ public class DummyContactManagerImpl implements ContactManager {
 	
 	public Calendar getTodayDate() {
 		return new GregorianCalendar();
+	}
+	
+	public Calendar clearDate(Calendar date) {
+		date.clear(Calendar.MILLISECOND);
+		date.clear(Calendar.SECOND); 
+		date.clear(Calendar.MINUTE);
+		date.clear(Calendar.HOUR_OF_DAY);
+		return date;
 	}
 	
 	public void checkRegisteredContacts(Contact contact) {
