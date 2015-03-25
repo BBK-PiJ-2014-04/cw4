@@ -41,7 +41,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 		    MeetingImpl item = i.next();
 		    if(id == item.getId()) {
-		    	if(item.getDate().compareTo(getTodayDate()) > 0) {
+		    	if(item.getDate().after(getTodayDate())) {
 		    		throw new IllegalArgumentException("The requested meeting is in the future!");
 		    	}
 		    	else {
@@ -57,7 +57,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 		    MeetingImpl item = i.next();
 		    if(id == item.getId()) {
-		    	if(item.getDate().compareTo(getTodayDate()) <= 0) {
+		    	if(item.getDate().before(getTodayDate())) {
 		    		throw new IllegalArgumentException("The requested meeting is in the future!");
 		    	}
 		    	else {
@@ -88,7 +88,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		List<Meeting> listOfMeetings = new ArrayList<Meeting>();
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 		    FutureMeetingImpl item = (FutureMeetingImpl) i.next();
-		    if(item.getDate().compareTo(new GregorianCalendar()) > 0 && item.getContacts().contains(contact)) {
+		    if(item.getDate().after(new GregorianCalendar()) && item.getContacts().contains(contact)) {
 		    	listOfMeetings.add(item);
 		    }
 		}
@@ -120,7 +120,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		List<PastMeeting> listOfMeetings = new ArrayList<PastMeeting>();
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 		    PastMeetingImpl item = (PastMeetingImpl) i.next();
-		    if(item.getDate().compareTo(new GregorianCalendar()) < 0 && item.getContacts().contains(contact)) {
+		    if(item.getDate().before(new GregorianCalendar()) && item.getContacts().contains(contact)) {
 		    	listOfMeetings.add(item);
 		    }
 		}
