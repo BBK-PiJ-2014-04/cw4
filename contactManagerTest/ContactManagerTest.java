@@ -269,5 +269,18 @@ public class ContactManagerTest {
 		Assert.assertNotNull(myPastMeeting.getDate());
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getFutureMeetingShouldNotPassAMeetingIDfromAPastMeeting() {
+		testCM.addNewContact(name, notes);
+		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		testCM.getFutureMeeting(firstID);
+	}
 	
+	@Test
+	public final void getFutureMeetingShouldReturnAPastMeetingifItsNotNull() {
+		testCM.addNewContact(name, notes);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		FutureMeeting myFutureMeeting = testCM.getFutureMeeting(1);
+		Assert.assertNotNull(myFutureMeeting.getDate());
+	}
 }
