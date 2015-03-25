@@ -272,7 +272,7 @@ public class ContactManagerTest {
 	@Test(expected = IllegalArgumentException.class)
 	public final void getFutureMeetingShouldNotPassAMeetingIDfromAPastMeeting() {
 		testCM.addNewContact(name, notes);
-		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), pastDate);
 		testCM.getFutureMeeting(firstID);
 	}
 	
