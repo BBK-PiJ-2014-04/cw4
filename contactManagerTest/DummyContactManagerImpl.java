@@ -137,6 +137,9 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void addMeetingNotes(int id, String text) {
+		if(text == null) {
+			throw new NullPointerException("The notes can't be null!");
+		}
 		boolean exists = false;
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 			MeetingImpl item = i.next();
