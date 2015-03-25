@@ -73,7 +73,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
 		    MeetingImpl item = i.next();
 		    if(id == item.getId()) {
-		    	return (FutureMeeting) item;
+		    	return (Meeting) item;
 		    }
 		}
 		return null;
@@ -85,6 +85,7 @@ public class DummyContactManagerImpl implements ContactManager {
 		return null;
 	}
 
+	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
 		// TODO Auto-generated method stub
