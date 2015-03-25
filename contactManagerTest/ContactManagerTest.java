@@ -251,6 +251,21 @@ public class ContactManagerTest {
 	public final void getContactsWithIDsShouldAcceptIDOfContactThatAreStored() {
 		int id = 1;
 		testCM.addNewContact(name, notes);
-		testCM.getContacts(1);
+		testCM.getContacts(id);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getPastMeetingShouldNotPassAMeetingIDfromAFutureMeeting() {
+		testCM.addNewContact(name, notes);
+		int firstID = testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		testCM.getPastMeeting(firstID);
+	}
+	
+	@Test
+	public final void getPastMeetingShouldReturnAPastMeeting() {
+		testCM.addNewContact(name, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), futureDate, notes);
+		PastMeeting myPastMeeting = testCM.getPastMeeting(1);
+		Assert.assertNotNull(myPastMeeting.getDate());
 	}
 }
