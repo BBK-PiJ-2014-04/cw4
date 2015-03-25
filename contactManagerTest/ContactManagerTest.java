@@ -351,11 +351,6 @@ public class ContactManagerTest {
 		Assert.assertTrue(true);
 	}
 	
-	@Test(expected = IllegalArgumentException.class)
-	public final void getMeetingListShouldNotAcceptNull() {
-		Calendar date = null;
-		testCM.getFutureMeetingList(date);
-	}
 	
 	@Test
 	public final void getMeetingListShouldReturnMeetingsCronologicallySorted() {
