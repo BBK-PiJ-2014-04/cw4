@@ -25,6 +25,7 @@ public class ContactManagerTest {
 	Calendar pastDate;
 	Calendar pastDate2;
 	Calendar futureDate;
+	Calendar futureDate2;
 	String name;
 	String notes;
 	private Set<Contact> testContacts = new HashSet<Contact>();
@@ -35,6 +36,7 @@ public class ContactManagerTest {
 		pastDate = new GregorianCalendar(1986,07,27);
 		pastDate2 = new GregorianCalendar(1996,07,27);
 		futureDate = new GregorianCalendar(2015,07,27);
+		futureDate2 = new GregorianCalendar(2025,07,27);
 		testCM = new DummyContactManagerImpl();
 		testContact = new ContactImpl(1,"FirstContact");
 		testContact2 = new ContactImpl(2,"FirstContact2");
@@ -285,12 +287,68 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public final void getMeetingCanReturnAAPastMeetingifItsNotNull() {
+	public final void getMeetingCanReturnAPastMeetingifItsNotNull() {
 		testCM.addNewContact(name, notes);
 		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, notes);
 		Meeting myMeetingInThePast = testCM.getMeeting(1);
 		Assert.assertNotNull(myMeetingInThePast.getDate());
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getFutureMeetingListShouldNotAcceptNull(){
+		Contact myContact = null;
+		testCM.getFutureMeetingList(myContact);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getFutureMeetingListShouldNotAcceptAContactThatIsNotStored() {
+		testCM.getFutureMeetingList(testContact);
+	}
+	
+	@Test
+	public final void getFutureMeetingListShouldReturnMeetingsCronologicallySorted() {
+		testCM.addNewContact(name, notes);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate);
+		List<Meeting> testlist = testCM.getFutureMeetingList(testCM.getContacts(name).iterator().next());
+		Calendar prevDate = null;
+		for(Iterator<Meeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Calendar currentDate = i.next().getDate();
+			if(prevDate == null || prevDate.compareTo(currentDate) <= 0) {
+				prevDate = currentDate;
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
+	
+	@Test
+	public final void getFutureMeetingListShouldNotReturnAnyDuplicate() {
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact("test1", notes);
+		testCM.addNewContact("test3", notes);
+		testCM.addNewContact("tmest2", notes);
+		testCM.addFutureMeeting(testCM.getContacts("test"), futureDate);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		testCM.addFutureMeeting(testCM.getContacts("test"), futureDate);
+		testCM.addFutureMeeting(testCM.getContacts("st3"), futureDate2);
+		List<Meeting> testlist = testCM.getFutureMeetingList(testCM.getContacts("test3").iterator().next());
+		List<Integer> IDLists = new ArrayList<Integer>();
+		for(Iterator<Meeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Integer currentID = i.next().getId();
+			if(!IDLists.contains(currentID)) {
+				IDLists.add(currentID);
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
 	
 }
