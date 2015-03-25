@@ -408,4 +408,24 @@ public class ContactManagerTest {
 		Assert.assertTrue(true);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public final void addMeetingNotesShouldNotAcceptIDsOfMeetingsWhichDoNotExist(){
+		testCM.addMeetingNotes(1, notes);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public final void addMeetingNotesShouldNotAcceptAFutureMeetingID(){
+		testCM.addNewContact(name, notes);
+		testCM.addMeetingNotes(testCM.addFutureMeeting(testCM.getContacts(name), futureDate), notes);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public final void addMeetingNotesShouldNotAcceptANullNotes(){
+		testCM.addNewContact(name, notes);
+		testCM.addNewPastMeeting(testCM.getContacts(name), pastDate, "");
+		testCM.addMeetingNotes(1, null);
+	}
+	
+	
+	
 }
