@@ -139,10 +139,13 @@ public class DummyContactManagerImpl implements ContactManager {
 	public void addMeetingNotes(int id, String text) {
 		boolean exists = false;
 		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
-			PastMeetingImpl item = (PastMeetingImpl) i.next();
+			MeetingImpl item = i.next();
 		    if(id == item.getId()) {
+		    	if(item.getDate().after(getTodayDate())) {
+		    		throw new IllegalStateException("You can't modify notes of a future Meeting");
+		    	}
 		    	exists = true;
-		    	item.setNotes(text);
+		    	((PastMeetingImpl) item).setNotes(text);
 		    	break;
 		    }
 		}
