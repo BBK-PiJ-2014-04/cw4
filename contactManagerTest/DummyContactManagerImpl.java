@@ -70,7 +70,12 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public Meeting getMeeting(int id) {
-		// TODO Auto-generated method stub
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+		    MeetingImpl item = i.next();
+		    if(id == item.getId()) {
+		    	return (FutureMeeting) item;
+		    }
+		}
 		return null;
 	}
 
