@@ -239,7 +239,7 @@ public class ContactManagerTest {
 	@Test(expected = IllegalArgumentException.class)
 	public final void getContactsWithIDsShouldNotAcceptIDOfContactThatAreNotStored() {
 		int id = 1;
-		testCM.getContacts(1);
+		testCM.getContacts(id);
 	}
 	
 	@Test
@@ -337,6 +337,68 @@ public class ContactManagerTest {
 		testCM.addFutureMeeting(testCM.getContacts("test"), futureDate);
 		testCM.addFutureMeeting(testCM.getContacts("st3"), futureDate2);
 		List<Meeting> testlist = testCM.getFutureMeetingList(testCM.getContacts("test3").iterator().next());
+		List<Integer> IDLists = new ArrayList<Integer>();
+		for(Iterator<Meeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Integer currentID = i.next().getId();
+			if(!IDLists.contains(currentID)) {
+				IDLists.add(currentID);
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public final void getMeetingListShouldNotAcceptNull() {
+		Calendar date = null;
+		testCM.getFutureMeetingList(date);
+	}
+	
+	@Test
+	public final void getMeetingListShouldReturnMeetingsCronologicallySorted() {
+		pastDate = new GregorianCalendar(2014,12,20,15,30);
+		pastDate2 = new GregorianCalendar(2014,12,20,16,30);
+		Calendar pastDate3 = new GregorianCalendar(2014,12,20,16,0);
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact("test1", notes);
+		testCM.addNewContact("test3", notes);
+		testCM.addNewContact("tmest2", notes);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate3, notes);
+		testCM.addNewPastMeeting(testCM.getContacts("st3"), pastDate2, notes);
+		List<Meeting> testlist = testCM.getFutureMeetingList(pastDate3);
+		Calendar prevDate = null;
+		for(Iterator<Meeting> i = testlist.iterator(); i.hasNext(); ) {
+			//I will order from the most recent till the least recent
+			Calendar currentDate = i.next().getDate();
+			if(prevDate == null || prevDate.compareTo(currentDate) <= 0) {
+				prevDate = currentDate;
+			}
+			else {
+				Assert.assertTrue(false);
+			}
+		}
+		Assert.assertTrue(true);
+	}
+	
+	@Test
+	public final void getMeetingListShouldNotReturnAnyDuplicate() {
+		pastDate = new GregorianCalendar(2014,12,20,15,30);
+		pastDate2 = new GregorianCalendar(2014,12,20,16,30);
+		Calendar pastDate3 = new GregorianCalendar(2014,12,20,16,0);
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact("test1", notes);
+		testCM.addNewContact("test3", notes);
+		testCM.addNewContact("tmest2", notes);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate3, notes);
+		testCM.addNewPastMeeting(testCM.getContacts("st3"), pastDate2, notes);
+		List<Meeting> testlist = testCM.getFutureMeetingList(pastDate3);
 		List<Integer> IDLists = new ArrayList<Integer>();
 		for(Iterator<Meeting> i = testlist.iterator(); i.hasNext(); ) {
 			//I will order from the most recent till the least recent
