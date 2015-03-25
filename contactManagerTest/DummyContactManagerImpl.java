@@ -137,7 +137,18 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void addMeetingNotes(int id, String text) {
-		// TODO Auto-generated method stub
+		boolean exists = false;
+		for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+			PastMeetingImpl item = (PastMeetingImpl) i.next();
+		    if(id == item.getId()) {
+		    	exists = true;
+		    	item.setNotes(text);
+		    	break;
+		    }
+		}
+		if(!exists) {
+			throw new IllegalArgumentException("The Meeting ID passed doesn't exist");
+		}
 		
 	}
 

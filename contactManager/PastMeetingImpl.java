@@ -31,5 +31,9 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	public String getNotes() {
 		return (notes != "") ? notes : "There are no notes for this meeting";
 	}
+	
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 
 }
