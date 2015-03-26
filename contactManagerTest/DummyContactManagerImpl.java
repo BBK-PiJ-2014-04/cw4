@@ -268,33 +268,40 @@ public class DummyContactManagerImpl implements ContactManager {
 	        rootEle.appendChild(ContactsRootEle);
 	        Element MeetingsRootEle = dom.createElement("Meetings");
 	        rootEle.appendChild(MeetingsRootEle);
+	        Element Contact = null;
+	        Element Meeting = null;
 	        
 	        for(Iterator<ContactImpl> i = contactsList.iterator(); i.hasNext(); ) {
+	        	Contact = dom.createElement("Contact");
+	        	
 	        	ContactImpl item = i.next();
 	        	e = dom.createElement("ID");
 		        e.appendChild(dom.createTextNode(((Integer)item.getId()).toString()));
-		        ContactsRootEle.appendChild(e);
+		        Contact.appendChild(e);
 
 		        e = dom.createElement("Name");
 		        e.appendChild(dom.createTextNode(item.getName()));
-		        ContactsRootEle.appendChild(e);
+		        Contact.appendChild(e);
 
 		        e = dom.createElement("Notes");
 		        e.appendChild(dom.createTextNode(item.getNotes()));
-		        ContactsRootEle.appendChild(e);
+		        Contact.appendChild(e);
+		        
+		        ContactsRootEle.appendChild(Contact);
 			}
 	        
 	        Element singleContact;
 	        for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+	        	Meeting = dom.createElement("Meeting");
 	        	MeetingImpl item = i.next();
 	        	
 	        	e = dom.createElement("ID");
 		        e.appendChild(dom.createTextNode(((Integer)item.getId()).toString()));
-		        MeetingsRootEle.appendChild(e);
+		        Meeting.appendChild(e);
 
 		        e = dom.createElement("meetingDate");
 		        e.appendChild(dom.createTextNode(item.getDate().toString()));
-		        MeetingsRootEle.appendChild(e);
+		        Meeting.appendChild(e);
 		        
 		        e = dom.createElement("Contacts");
 		        
@@ -304,13 +311,14 @@ public class DummyContactManagerImpl implements ContactManager {
 		        	singleContact.appendChild(dom.createTextNode(((Integer)myContact.getId()).toString()));
 		        	e.appendChild(singleContact);
 		        }
-		        MeetingsRootEle.appendChild(e);
+		        Meeting.appendChild(e);
 		        
 		        if(item.getDate().before(getTodayDate())){
 		        	e = dom.createElement("Notes");
 		        	e.appendChild(dom.createTextNode(((PastMeetingImpl)item).getNotes()));
-		        	MeetingsRootEle.appendChild(e);
+		        	Meeting.appendChild(e);
 		        }
+		        MeetingsRootEle.appendChild(Meeting);
 			}
 	        
 	        dom.appendChild(rootEle);
