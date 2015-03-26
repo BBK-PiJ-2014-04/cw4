@@ -13,8 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import contactManager.ContactImpl;
-import contactManager.PastMeetingImpl;
-import contactManagerInterfaces.*;
+import contactManagerInterfaces.Contact;
+import contactManagerInterfaces.ContactManager;
+import contactManagerInterfaces.Meeting;
+import contactManagerInterfaces.PastMeeting;
 
 public class ContactManagerTest {
 	
@@ -434,6 +436,15 @@ public class ContactManagerTest {
 		Assert.assertTrue(testCM.getPastMeeting(1).getNotes().equals(notes));
 	}
 	
-	
+	@Test
+	public final void theClassShouldHaveTheSameListsAfterSaveAndLoad() {
+		testCM.addNewContact(name, notes);
+		testCM.addNewContact("test1", notes);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
+		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
+		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate2, notes);
+		testCM.flush();
+		testCM = new DummyContactManagerImpl();
+	}
 	
 }
