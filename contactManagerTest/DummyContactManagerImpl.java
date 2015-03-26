@@ -1,5 +1,7 @@
 package contactManagerTest;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -8,6 +10,19 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import contactManager.ContactImpl;
 import contactManager.FutureMeetingImpl;
@@ -205,8 +220,7 @@ public class DummyContactManagerImpl implements ContactManager {
 
 	@Override
 	public void flush() {
-		// TODO Auto-generated method stub
-		
+		saveToXML(System.getProperty("user.dir") +"\\ContactManager\\ContactsXML\\contacts.xml");
 	}
 	
 	public int getNextAvailableID(List<?> mylist){
@@ -237,5 +251,88 @@ public class DummyContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException("The contact is not registered in the Contact Manager");
 	
 		}
+	}
+	
+	public void saveToXML(String xml) {
+	    Document dom;
+	    Element e = null;
+	    
+	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	    try {
+	        DocumentBuilder db = dbf.newDocumentBuilder();
+	        dom = db.newDocument();
+
+	        Element rootEle = dom.createElement("ContactManager");
+	        
+	        Element ContactsRootEle = dom.createElement("Contacts");
+	        rootEle.appendChild(ContactsRootEle);
+	        Element MeetingsRootEle = dom.createElement("Meetings");
+	        rootEle.appendChild(MeetingsRootEle);
+	        
+	        for(Iterator<ContactImpl> i = contactsList.iterator(); i.hasNext(); ) {
+	        	ContactImpl item = i.next();
+	        	e = dom.createElement("ID");
+		        e.appendChild(dom.createTextNode(((Integer)item.getId()).toString()));
+		        ContactsRootEle.appendChild(e);
+
+		        e = dom.createElement("Name");
+		        e.appendChild(dom.createTextNode(item.getName()));
+		        ContactsRootEle.appendChild(e);
+
+		        e = dom.createElement("Notes");
+		        e.appendChild(dom.createTextNode(item.getNotes()));
+		        ContactsRootEle.appendChild(e);
+			}
+	        
+	        Element singleContact;
+	        for(Iterator<MeetingImpl> i = meetingsList.iterator(); i.hasNext(); ) {
+	        	MeetingImpl item = i.next();
+	        	
+	        	e = dom.createElement("ID");
+		        e.appendChild(dom.createTextNode(((Integer)item.getId()).toString()));
+		        MeetingsRootEle.appendChild(e);
+
+		        e = dom.createElement("meetingDate");
+		        e.appendChild(dom.createTextNode(item.getDate().toString()));
+		        MeetingsRootEle.appendChild(e);
+		        
+		        e = dom.createElement("Contacts");
+		        
+		        for(Iterator<Contact> m = item.getContacts().iterator(); m.hasNext(); ) {
+		        	ContactImpl myContact = (ContactImpl) m.next();
+		        	singleContact  = dom.createElement("ContactID");
+		        	singleContact.appendChild(dom.createTextNode(((Integer)myContact.getId()).toString()));
+		        	e.appendChild(singleContact);
+		        }
+		        MeetingsRootEle.appendChild(e);
+		        
+		        if(item.getDate().before(getTodayDate())){
+		        	e = dom.createElement("Notes");
+		        	e.appendChild(dom.createTextNode(((PastMeetingImpl)item).getNotes()));
+		        	MeetingsRootEle.appendChild(e);
+		        }
+			}
+	        
+	        dom.appendChild(rootEle);
+	        try {
+	            Transformer tr = TransformerFactory.newInstance().newTransformer();
+	            tr.setOutputProperty(OutputKeys.INDENT, "yes");
+	            tr.setOutputProperty(OutputKeys.METHOD, "xml");
+	            tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+	            tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.dtd");
+	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+	            // send DOM to file
+	            tr.transform(new DOMSource(dom), 
+	                                 new StreamResult(new FileOutputStream(xml)));
+
+	        } catch (TransformerException te) {
+	            System.out.println(te.getMessage());
+	        } catch (IOException ioe) {
+	            System.out.println(ioe.getMessage());
+	        }
+	    } catch (ParserConfigurationException pce) {
+	        System.out.println("UsersXML: Error trying to instantiate DocumentBuilder " + pce);
+	    }
 	}
 }
