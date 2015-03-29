@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ContactManager>
+    <Contacts>
+        <Contact>
+            <ID>1</ID>
+            <Name>something</Name>
+            <Notes>something</Notes>
+        </Contact>
+        <Contact>
+            <ID>2</ID>
+            <Name>test1</Name>
+            <Notes>something</Notes>
+        </Contact>
+    </Contacts>
+    <Meetings>
+        <Meeting>
+            <ID>1</ID>
+            <meetingDate>1986/08/27/12/00</meetingDate>
+            <MeetingContacts>
+                <ContactID>1</ContactID>
+                <ContactID>2</ContactID>
+            </MeetingContacts>
+            <Notes>something</Notes>
+        </Meeting>
+        <Meeting>
+            <ID>2</ID>
+            <meetingDate>2025/08/27/12/00</meetingDate>
+            <MeetingContacts>
+                <ContactID>1</ContactID>
+                <ContactID>2</ContactID>
+            </MeetingContacts>
+        </Meeting>
+        <Meeting>
+            <ID>3</ID>
+            <meetingDate>1996/08/27/12/00</meetingDate>
+            <MeetingContacts>
+                <ContactID>1</ContactID>
+                <ContactID>2</ContactID>
+            </MeetingContacts>
+            <Notes>something</Notes>
+        </Meeting>
+    </Meetings>
+</ContactManager>

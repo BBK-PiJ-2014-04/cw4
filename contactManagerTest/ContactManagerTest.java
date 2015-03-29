@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import contactManager.ContactImpl;
+import contactManager.ContactManagerImpl;
 import contactManagerInterfaces.Contact;
 import contactManagerInterfaces.ContactManager;
 import contactManagerInterfaces.Meeting;
@@ -39,7 +40,7 @@ public class ContactManagerTest {
 		pastDate2 = new GregorianCalendar(1996,07,27);
 		futureDate = new GregorianCalendar(2015,07,27);
 		futureDate2 = new GregorianCalendar(2025,07,27);
-		testCM = new DummyContactManagerImpl();
+		testCM = new ContactManagerImpl();
 		testContact = new ContactImpl(1,"FirstContact");
 		testContact2 = new ContactImpl(2,"FirstContact2");
 		name = "something";
@@ -441,6 +442,7 @@ public class ContactManagerTest {
 	@Test
 	public final void theClassShouldHaveTheSameContactListAfterSaveAndLoad() {
 		String Contactfile = System.getProperty("user.dir") +"\\ContactManager\\ContactsXML\\contacts.xml";
+		//testCM = new DummyContactManagerImpl(Contactfile);
 		testCM.addNewContact(name, notes);
 		testCM.addNewContact("test1", notes);
 		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
@@ -448,14 +450,13 @@ public class ContactManagerTest {
 		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate2, notes);
 		testCM.flush();
 		testCM = new DummyContactManagerImpl(Contactfile);
-		Assert.assertTrue(testCM.getContacts(0,1).size() == 2);
+		Assert.assertTrue(testCM.getContacts(1,2).size() == 2); //error here!!
 	}
 	
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public final void theClassShouldHaveEmptyListsWhenImplementedWithNoParameters() {
 		testCM = new DummyContactManagerImpl();
-		testCM.getContacts(0,1);
-		Assert.assertTrue(testCM.getContacts(0,1).size() == 0);
+		testCM.getContacts(1);
 	}
 	
 }

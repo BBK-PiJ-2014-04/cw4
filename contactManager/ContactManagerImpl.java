@@ -1,4 +1,4 @@
-package contactManagerTest;
+package contactManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,18 +39,18 @@ import contactManagerInterfaces.FutureMeeting;
 import contactManagerInterfaces.Meeting;
 import contactManagerInterfaces.PastMeeting;
 
-public class DummyContactManagerImpl implements ContactManager {
+public class ContactManagerImpl implements ContactManager {
 
 	private List<Contact> contactsList;
 	private List<Meeting> meetingsList;
 	private String contactManagerXml = ""; 
 	
-	public DummyContactManagerImpl() {
+	public ContactManagerImpl() {
 		contactsList = new ArrayList<Contact>();
 		meetingsList = new ArrayList<Meeting>();
 	}
 	
-	public DummyContactManagerImpl(String xml) {
+	public ContactManagerImpl(String xml) {
 		contactsList = new ArrayList<Contact>();
 		meetingsList = new ArrayList<Meeting>();
 		contactManagerXml = xml;
@@ -432,3 +432,4 @@ public class DummyContactManagerImpl implements ContactManager {
 	    }
 	}
 }
+
