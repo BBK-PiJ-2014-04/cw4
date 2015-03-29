@@ -436,15 +436,26 @@ public class ContactManagerTest {
 		Assert.assertTrue(testCM.getPastMeeting(1).getNotes().equals(notes));
 	}
 	
+	
+	
 	@Test
-	public final void theClassShouldHaveTheSameListsAfterSaveAndLoad() {
+	public final void theClassShouldHaveTheSameContactListAfterSaveAndLoad() {
+		String Contactfile = System.getProperty("user.dir") +"\\ContactManager\\ContactsXML\\contacts.xml";
 		testCM.addNewContact(name, notes);
 		testCM.addNewContact("test1", notes);
 		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate, notes);
 		testCM.addFutureMeeting(testCM.getContacts(name), futureDate2);
 		testCM.addNewPastMeeting(testCM.getContacts("test"), pastDate2, notes);
 		testCM.flush();
+		testCM = new DummyContactManagerImpl(Contactfile);
+		Assert.assertTrue(testCM.getContacts(0,1).size() == 2);
+	}
+	
+	@Test
+	public final void theClassShouldHaveEmptyListsWhenImplementedWithNoParameters() {
 		testCM = new DummyContactManagerImpl();
+		testCM.getContacts(0,1);
+		Assert.assertTrue(testCM.getContacts(0,1).size() == 0);
 	}
 	
 }
