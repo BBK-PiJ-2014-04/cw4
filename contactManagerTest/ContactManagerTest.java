@@ -33,7 +33,9 @@ public class ContactManagerTest {
 	String notes;
 	private Set<Contact> testContacts = new HashSet<Contact>();
 	
-	
+	/**
+	 * Instantiate preliminary actions for each test
+	 */
 	@Before
 	public void instantiateClass() {
 		pastDate = new GregorianCalendar(1986,07,27);

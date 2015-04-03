@@ -1,5 +1,7 @@
 package contactManager;
 
+
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,24 +41,50 @@ import contactManagerInterfaces.FutureMeeting;
 import contactManagerInterfaces.Meeting;
 import contactManagerInterfaces.PastMeeting;
 
+/**
+ * @author MscDevelopment
+ *
+ */
+/**
+ * @author MscDevelopment
+ *
+ */
+/**
+ * @author MscDevelopment
+ *
+ */
 public class ContactManagerImpl implements ContactManager {
 
 	private List<Contact> contactsList;
 	private List<Meeting> meetingsList;
 	private String contactManagerXml = ""; 
 	
+	
+	/**
+	 * Constructor to initialise a new ContactManager, without restore
+	 */
 	public ContactManagerImpl() {
 		contactsList = new ArrayList<Contact>();
 		meetingsList = new ArrayList<Meeting>();
 	}
 	
+	/**
+	 * Constructor to initialise the ContactManager restoring a previous session(saved on a XML file)
+	 * 
+	 * @param xml
+	 */
 	public ContactManagerImpl(String xml) {
 		contactsList = new ArrayList<Contact>();
 		meetingsList = new ArrayList<Meeting>();
 		contactManagerXml = xml;
 		this.loadToXML(xml);
 	}
+
+
 	
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		if(contacts == null) {
@@ -69,6 +97,9 @@ public class ContactManagerImpl implements ContactManager {
 		return nextID;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
 		for(Iterator<Meeting> i = meetingsList.iterator(); i.hasNext(); ) {
@@ -84,7 +115,10 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
 		for(Iterator<Meeting> i = meetingsList.iterator(); i.hasNext(); ) {
@@ -101,6 +135,9 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public Meeting getMeeting(int id) {
 		for(Iterator<Meeting> i = meetingsList.iterator(); i.hasNext(); ) {
@@ -111,7 +148,10 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
 		if(contact == null) {
@@ -130,6 +170,9 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	//From discussion on the Forum the lecturer suggested that, despite the name, this method must return ALL the meetings, regardless when they will happen or have happened
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
 		//I will consider just the YEAR/MONTH/DAY of the date passed and then give back all the meetings on that day ordered
@@ -144,6 +187,9 @@ public class ContactManagerImpl implements ContactManager {
 		return listOfMeetings;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
 		if(contact == null) {
@@ -161,6 +207,9 @@ public class ContactManagerImpl implements ContactManager {
 		return listOfMeetings;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
@@ -168,6 +217,9 @@ public class ContactManagerImpl implements ContactManager {
 		meetingsList.add(new PastMeetingImpl(nextID, date, contacts, text));
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
 		if(text == null) {
@@ -191,6 +243,9 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public void addNewContact(String name, String notes) {
 		ContactImpl newContact = new ContactImpl(getNextAvailableID(contactsList),name);
@@ -199,6 +254,9 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
 		Set<Contact> listOfContacts = new HashSet<Contact>();
@@ -222,6 +280,9 @@ public class ContactManagerImpl implements ContactManager {
 		return listOfContacts;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
 		Set<Contact> listOfContacts = new HashSet<Contact>();
@@ -236,27 +297,39 @@ public class ContactManagerImpl implements ContactManager {
 		return listOfContacts;
 	}
 
+	/**
+	 * Saves a XML containing the Meetings List and the Contacts List either on a default path or on a specified path, based on the way the Class has been initialised (Constructor)
+	 */
 	@Override
 	public void flush() {
 		String defaultPath = System.getProperty("user.dir") +"\\ContactManager\\ContactsXML\\contacts_" + UUID.randomUUID() + ".xml";
 		saveToXML((contactManagerXml.equals("")) ? defaultPath : contactManagerXml);
 	}
 	
+	/**
+	 * Getting the next available not-used ID (Pretty basic, but there's no deletion so it should be enough)
+	 * 
+	 * @param mylist
+	 * @return int guid
+	 */
 	public int getNextAvailableID(List<?> mylist){
 		return mylist.size() + 1;
 	}
 	
-	public void checkRegisteredContacts(Set<Contact> contactsSet) {
-		if(!contactsList.containsAll(contactsSet)) {
-			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
-	
-		}
-	}
-	
+	/**
+	 * 
+	 * @return Calendar Today Date
+	 */
 	public Calendar getTodayDate() {
 		return new GregorianCalendar();
 	}
 	
+	/**
+	 * Clearing a Calendar date to check which meetings are going to happen today
+	 * 
+	 * @param date
+	 * @return Calendar Date with just year, month and day of the month
+	 */
 	public Calendar clearDate(Calendar date) {
 		date.clear(Calendar.MILLISECOND);
 		date.clear(Calendar.SECOND); 
@@ -265,6 +338,11 @@ public class ContactManagerImpl implements ContactManager {
 		return date;
 	}
 	
+	/**
+	 * Checking if a contact has already been inserted into the ContactList 
+	 * 
+	 * @param contact
+	 */
 	public void checkRegisteredContacts(Contact contact) {
 		if(!contactsList.contains(contact)) {
 			throw new IllegalArgumentException("The contact is not registered in the Contact Manager");
@@ -272,6 +350,24 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	}
 	
+	/**
+	 * Checking if a a set of contacts has already been inserted into the ContactList 
+	 * 
+	 * @param contactsSet
+	 */
+	public void checkRegisteredContacts(Set<Contact> contactsSet) {
+		if(!contactsList.containsAll(contactsSet)) {
+			throw new IllegalArgumentException("One or more Contacs are not registered in the Contact Manager");
+	
+		}
+	}
+	
+	/**
+	 * Restoring the previously changed Contacts and Meetings
+	 * Code written with the support of the StackOverlow website
+	 * 
+	 * @param xml
+	 */
 	public void loadToXML(String xml) {
 		 try {
 				File fXmlFile = new File(xml);
@@ -279,8 +375,6 @@ public class ContactManagerImpl implements ContactManager {
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(fXmlFile);
 			 
-				//optional, but recommended
-				//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("Contact");
 
@@ -339,6 +433,12 @@ public class ContactManagerImpl implements ContactManager {
 			    }
 	}
 	
+	/**
+	 * Saving the Contacts and the Meeting on a XML file
+	 * Code written with the support of StackOverlow website
+	 * 
+	 * @param xml
+	 */
 	public void saveToXML(String xml) {
 	    Document dom;
 	    Element e = null;

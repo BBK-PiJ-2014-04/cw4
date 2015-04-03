@@ -1,4 +1,11 @@
 package contactManager;
+/**
+ * @see Meeting
+ * 
+ * 
+ * @author SalvatoreCardali
+ *
+ */
 
 import java.util.Calendar;
 import java.util.Set;
@@ -12,7 +19,14 @@ public class MeetingImpl implements Meeting {
 	private Calendar meetingDate;
 	private Set<Contact> attendingContacs;
 	
-
+	/**
+	 * The Constructor gets and populates all the properties. 
+	 * The id is passed but it's generated/checked by the ContactManager Class
+	 * 
+	 * @param id
+	 * @param meetingDate
+	 * @param attendingContacs
+	 */
 	public MeetingImpl(int id, Calendar meetingDate, Set<Contact> attendingContacs) {
 		this.id = id;
 		this.meetingDate = meetingDate;
@@ -27,16 +41,25 @@ public class MeetingImpl implements Meeting {
 		}
 	}
 	
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public int getId() {
 		return id;
 	}
-
+	
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public Calendar getDate() {
 		return meetingDate;
 	}
 
+	/**
+	 * @see @inheritDoc
+	 */
 	@Override
 	public Set<Contact> getContacts() {
 		return attendingContacs;
